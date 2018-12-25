@@ -406,6 +406,9 @@ RUN if [ ${INSTALL_INTL} = true ]; then \
     docker-php-ext-install intl \
 ;fi
 
+
+
+
 ###########################################################################
 # GHOSTSCRIPT:
 ###########################################################################
@@ -493,6 +496,14 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     pecl install imagick && \
     docker-php-ext-enable imagick \
 ;fi
+
+USER root
+ARG INSTALL_FFMPEG=true
+
+RUN if [ ${INSTALL_FFMPEG} = true ]; then \
+    apt-get install -y ffmpeg \
+;fi
+
 
 ###########################################################################
 # IMAP:
