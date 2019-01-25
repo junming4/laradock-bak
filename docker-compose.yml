@@ -109,6 +109,9 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
         - "${WORKSPACE_SSH_PORT}:22"
+        - "1883:1883"
+        - "5200:5200"
+        - "5300:5300"
       tty: true
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -163,7 +166,6 @@ services:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       expose:
         - "9000"
-        - "5200"
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       environment:
@@ -483,8 +485,6 @@ services:
         - "${RABBITMQ_NODE_HOST_PORT}:5672"
         - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
         - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
-        - "${MQTT_TCP_PORT}:1883"
-        - "${MQTT_WEB_PORT}:15675"
       privileged: true
       environment:
         - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
@@ -726,7 +726,7 @@ services:
       networks:
         - frontend
         - backend
-        
+
 ### Solr ################################################
     solr:
       build:
@@ -888,18 +888,19 @@ services:
         context: ./gitlab
       environment:
         GITLAB_OMNIBUS_CONFIG: |
-          external_url '${GITLAB_DOMAIN_NAME}' 
-          redis['enable'] = false 
-          nginx['listen_https'] = false 
-          nginx['listen_port'] = 80 
-          postgresql['enable'] = false 
-          gitlab_rails['trusted_proxies'] = ['caddy','nginx','apache2'] 
-          gitlab_rails['redis_host'] = 'redis' 
+          external_url '${GITLAB_DOMAIN_NAME}'
+          redis['enable'] = false
+          nginx['listen_https'] = false
+          nginx['listen_port'] = 8989
+          postgresql['enable'] = false
+          gitlab_rails['trusted_proxies'] = ['caddy','nginx','apache2']
+          gitlab_rails['redis_host'] = 'redis'
+          gitlab_rails['redis_password'] = 'redis'
           gitlab_rails['redis_database'] = 8
-          gitlab_rails['db_host'] = 'postgres' 
-          gitlab_rails['db_username'] = 'laradock_gitlab'
-          gitlab_rails['db_password'] = 'laradock_gitlab'
-          gitlab_rails['db_database'] = 'laradock_gitlab'
+          gitlab_rails['db_host'] = 'mysql'
+          gitlab_rails['db_username'] = 'test'
+          gitlab_rails['db_password'] = 'test123456'
+          gitlab_rails['db_database'] = 'test'
           gitlab_rails['initial_root_password'] = '${GITLAB_ROOT_PASSWORD}'
           gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_HOST_SSH_PORT}
       volumes:
@@ -907,7 +908,7 @@ services:
         - ${DATA_PATH_HOST}/gitlab/data:/var/opt/gitlab
         - ${GITLAB_HOST_LOG_PATH}:/var/log/gitlab
       ports:
-        - "${GITLAB_HOST_HTTP_PORT}:80"
+        - "${GITLAB_HOST_HTTP_PORT}:8989"
         - "${GITLAB_HOST_HTTPS_PORT}:443"
         - "${GITLAB_HOST_SSH_PORT}:22"
       networks:
@@ -923,7 +924,7 @@ services:
         - ${DATA_PATH_HOST}/gitlab/runner:/etc/gitlab-runner
         - /var/run/docker.sock:/var/run/docker.sock:rw
       restart: always
-      
+
 ### JupyterHub #########################################
     jupyterhub:
       build:
@@ -1034,7 +1035,7 @@ services:
         - backend
       depends_on:
         - mongo
-  
+
 ### Metabase #################################################
     metabase:
       image: metabase/metabase:latest
