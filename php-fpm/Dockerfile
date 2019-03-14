@@ -214,6 +214,21 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
     docker-php-ext-enable mongodb \
 ;fi
 
+
+ARG INSTALL_MSGPACK=true
+
+RUN if [ ${INSTALL_MSGPACK} = true ]; then \
+  # Install the xdebug extension
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+    pecl install msgpack; \
+  else \
+    pecl install msgpack; \
+  fi && \
+  docker-php-ext-enable msgpack \
+;fi
+
+
+
 ###########################################################################
 # AMQP:
 ###########################################################################
@@ -492,8 +507,9 @@ USER root
 ARG INSTALL_IMAGEMAGICK=false
 
 RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    apt-get update && \
     apt-get install -y imagemagick libmagickwand-dev && \
-    pecl install imagick && \
+    pecl install imagick-beta && \
     docker-php-ext-enable imagick \
 ;fi
 

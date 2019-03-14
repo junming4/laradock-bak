@@ -352,6 +352,13 @@ RUN if [ ${INSTALL_AMQP} = true ]; then \
     ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/amqp.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-amqp.ini \
 ;fi
 
+
+ARG INSTALL_MSGPACK=true
+
+RUN if [ ${INSTALL_MSGPACK} = true ]; then \
+ pecl install msgpack \
+;fi
+
 ###########################################################################
 # PHP REDIS EXTENSION
 ###########################################################################
@@ -774,10 +781,17 @@ RUN if [ ${INSTALL_SYMFONY} = true ]; then \
 ARG INSTALL_PYTHON=false
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apt-get -y install python python-pip python-dev build-essential  \
+  apt-get -y install python python-pip python-dev build-essential \
   && python -m pip install --upgrade pip  \
   && python -m pip install --upgrade virtualenv \
+  && python -m pip install --upgrade selenium \
+  && python -m pip install --upgrade Pillow \
+  && python -m pip install --upgrade requests \
+  && python -m pip install --upgrade pyquery \
+  && python -m pip install --upgrade pytesseract \
 ;fi
+
+
 
 ###########################################################################
 # ImageMagick:
@@ -823,6 +837,21 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
     && apt-get -y install postgresql-client-10 \
 ;fi
 
+
+USER root
+
+ARG INSTALL_TESSERACT=true
+
+RUN if [ ${INSTALL_TESSERACT} = true ]; then \
+    # Install the php V8JS extension
+    add-apt-repository -y ppa:alex-p/tesseract-ocr \
+    && apt-get update -yqq \
+    && apt-get install -y tesseract-ocr \
+    #&& pecl install tesseract-ocr-eng tesseract-ocr-chi-sim  tesseract-ocr-equ \
+;fi
+
+
+
 ###########################################################################
 # nasm
 ###########################################################################
@@ -830,8 +859,10 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
 USER root
 
 RUN apt-get update -yqq \
-    && apt-get -yqq install nasm 
+    && apt-get -yqq install nasm
 
+
+#RUN yum install tesseract-langpack-deu
 ###########################################################################
 # Dusk Dependencies:
 ###########################################################################
@@ -908,6 +939,9 @@ USER root
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm /var/log/lastlog /var/log/faillog
+
+
+
 
 # Set default work directory
 WORKDIR /var/www

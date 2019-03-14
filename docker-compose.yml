@@ -112,6 +112,8 @@ services:
         - "1883:1883"
         - "5200:5200"
         - "5300:5300"
+        - "5400:5400"
+        - "3000:3000"
       tty: true
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -1070,6 +1072,8 @@ services:
       networks:
         - backend
 
+    tesseract:
+          build: ./tesseract
 ### IDE-CODIAD ################################################
     ide-codiad:
       build:
