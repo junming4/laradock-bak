@@ -53,6 +53,24 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     docker-php-ext-install zip \
 ;fi
 
+###########################################################################
+# MongoDB:
+###########################################################################
+
+ARG INSTALL_MONGO=true
+
+RUN if [ ${INSTALL_MONGO} = true ]; then \
+    # Install the mongodb extension
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+      pecl install mongo && \
+      echo "extension=mongo.so" >> /usr/local/etc/php/conf.d/mongo.ini \
+     # ln -s /usr/local/etc/php/conf.d/mongo.ini /usr/local/etc/php/conf.d/30-mongo.ini \
+    ;fi && \
+    pecl install mongodb && \
+    echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini \
+    #ln -s /usr/local/etc/php/conf.d/mongodb.ini /usr/local/etc/php/conf.d/30-mongodb.ini \
+;fi
+
 RUN rm /var/cache/apk/* \
     && mkdir -p /var/www
 
