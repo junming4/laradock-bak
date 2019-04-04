@@ -789,6 +789,9 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   && python -m pip install --upgrade requests \
   && python -m pip install --upgrade pyquery \
   && python -m pip install --upgrade pytesseract \
+  #&& pip install MySQL-python \
+  && python -m pip install --upgrade baidu-aip \
+
 ;fi
 
 
@@ -918,7 +921,7 @@ ARG INSTALL_MYSQL_CLIENT=false
 
 RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
     apt-get update -yqq && \
-    apt-get -y install mysql-client \
+    apt-get -y install mysql-client libmysqlclient-dev \
 ;fi
 
 ###########################################################################

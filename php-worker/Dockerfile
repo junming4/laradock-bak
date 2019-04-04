@@ -71,6 +71,24 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
     #ln -s /usr/local/etc/php/conf.d/mongodb.ini /usr/local/etc/php/conf.d/30-mongodb.ini \
 ;fi
 
+ARG INSTALL_SWOOLE=true
+
+RUN if [ ${INSTALL_SWOOLE} = true ]; then \
+    # Install Php Swoole Extension
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+      pecl -q install swoole-2.0.11; \
+    else \
+      if [ $(php -r "echo PHP_MINOR_VERSION;") = "0" ]; then \
+        pecl install swoole-2.2.0; \
+      else \
+        pecl install swoole; \
+      fi \
+    fi && \
+    echo "extension=swoole.so" >> /usr/local/etc/php/conf.d/swoole.ini \
+    #ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/swoole.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/20-swoole.ini \
+;fi
+
+
 RUN rm /var/cache/apk/* \
     && mkdir -p /var/www
 

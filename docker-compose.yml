@@ -109,11 +109,6 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
         - "${WORKSPACE_SSH_PORT}:22"
-        - "1883:1883"
-        - "5200:5200"
-        - "5300:5300"
-        - "5400:5400"
-        - "3000:3000"
       tty: true
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -198,6 +193,12 @@ services:
         - workspace
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
+      ports:
+        - "1883:1883"
+        - "5200:5200"
+        - "5300:5300"
+        - "5400:5400"
+        - "3000:3000"
       networks:
         - backend
 ### Laravel Horizon ############################################
