@@ -670,16 +670,21 @@ USER root
 
 ARG INSTALL_LINUXBREW=false
 
+#https://www.cnblogs.com/jackey2015/p/10033072.html 查考
 RUN if [ ${INSTALL_LINUXBREW} = true ]; then \
     # Preparation
+    apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y build-essential make cmake scons curl git \
+    apt-get install -y -f build-essential make cmake scons curl git \
       ruby autoconf automake autoconf-archive \
       gettext libtool flex bison \
       libbz2-dev libcurl4-openssl-dev \
       libexpat-dev libncurses-dev && \
     # Install the Linuxbrew
-    git clone --depth=1 https://github.com/Homebrew/linuxbrew.git ~/.linuxbrew && \
+    git clone --depth=1 https://github.com/Linuxbrew/brew.git ~/.linuxbrew && \
+    git clone --depth=1 https://github.com/Linuxbrew/homebrew-core ~/.linuxbrew/Library/Taps/homebrew && \
+
+
     echo "" >> ~/.bashrc && \
     echo 'export PKG_CONFIG_PATH"=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig:/usr/lib64/pkgconfig:/usr/lib/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib64/pkgconfig:/usr/share/pkgconfig:$PKG_CONFIG_PATH"' >> ~/.bashrc && \
     # Setup linuxbrew
@@ -774,25 +779,7 @@ RUN if [ ${INSTALL_SYMFONY} = true ]; then \
   #  && echo 'alias prod="php app/console -e=prod"' >> ~/.bashrc \
 ;fi
 
-###########################################################################
-# PYTHON:
-###########################################################################
 
-ARG INSTALL_PYTHON=false
-
-RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apt-get -y install python python-pip python-dev build-essential \
-  && python -m pip install --upgrade pip  \
-  && python -m pip install --upgrade virtualenv \
-  && python -m pip install --upgrade selenium \
-  && python -m pip install --upgrade Pillow \
-  && python -m pip install --upgrade requests \
-  && python -m pip install --upgrade pyquery \
-  && python -m pip install --upgrade pytesseract \
-  #&& pip install MySQL-python \
-  && python -m pip install --upgrade baidu-aip \
-
-;fi
 
 
 
@@ -849,7 +836,7 @@ RUN if [ ${INSTALL_TESSERACT} = true ]; then \
     # Install the php V8JS extension
     add-apt-repository -y ppa:alex-p/tesseract-ocr \
     && apt-get update -yqq \
-    && apt-get install -y tesseract-ocr \
+    && apt-get install -y tesseract-ocr-eng tesseract-ocr-chi-sim  tesseract-ocr-equ \
     #&& pecl install tesseract-ocr-eng tesseract-ocr-chi-sim  tesseract-ocr-equ \
 ;fi
 
@@ -877,7 +864,9 @@ ENV CHROME_DRIVER_VERSION ${CHROME_DRIVER_VERSION}
 ARG INSTALL_DUSK_DEPS=false
 
 RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
-  apt-get -y install zip wget unzip xdg-utils \
+   apt-get update -y && \
+   apt-get upgrade -y && \
+   apt-get -y install zip wget unzip xdg-utils \
     libxpm4 libxrender1 libgtk2.0-0 libnss3 libgconf-2-4 xvfb \
     gtk2-engines-pixbuf xfonts-cyrillic xfonts-100dpi xfonts-75dpi \
     xfonts-base xfonts-scalable x11-apps \
@@ -922,6 +911,27 @@ ARG INSTALL_MYSQL_CLIENT=false
 RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
     apt-get update -yqq && \
     apt-get -y install mysql-client libmysqlclient-dev \
+;fi
+
+###########################################################################
+# PYTHON:
+###########################################################################
+
+ARG INSTALL_PYTHON=false
+
+RUN if [ ${INSTALL_PYTHON} = true ]; then \
+  apt-get -y install python python-pip python-dev build-essential \
+  && python -m pip install --upgrade pip  \
+  && python -m pip install --upgrade virtualenv \
+  && python -m pip install --upgrade selenium \
+  && python -m pip install --upgrade Pillow \
+  && python -m pip install --upgrade requests \
+  && python -m pip install --upgrade pyquery \
+  && python -m pip install --upgrade pytesseract \
+  && pip install MySQL-python \
+  && pip install pymongo \
+  && python -m pip install --upgrade baidu-aip \
+
 ;fi
 
 ###########################################################################
