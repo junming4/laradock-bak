@@ -932,6 +932,7 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   && pip install pymongo \
   && pip install redis \
   && pip install opencv-python \
+  && pip install numpy \
   && python -m pip install --upgrade baidu-aip \
 
 ;fi
