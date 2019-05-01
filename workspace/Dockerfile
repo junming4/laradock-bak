@@ -930,6 +930,8 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   && python -m pip install --upgrade pytesseract \
   && pip install MySQL-python \
   && pip install pymongo \
+  && pip install redis \
+  && pip install opencv-python \
   && python -m pip install --upgrade baidu-aip \
 
 ;fi
