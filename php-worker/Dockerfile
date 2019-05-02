@@ -9,6 +9,8 @@ FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
+RUN apt-get update -yqq
+
 RUN apk --update add wget \
   curl \
   git \
@@ -20,8 +22,7 @@ RUN apk --update add wget \
   autoconf \
   cyrus-sasl-dev \
   libgsasl-dev \
-  supervisor   \
-  apt-get
+  supervisor
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 && docker-php-ext-enable memcached
