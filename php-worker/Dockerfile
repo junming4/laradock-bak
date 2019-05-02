@@ -9,8 +9,6 @@ FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
-RUN apt-get update -yqq
-
 RUN apk --update add wget \
   curl \
   git \
@@ -22,7 +20,8 @@ RUN apk --update add wget \
   autoconf \
   cyrus-sasl-dev \
   libgsasl-dev \
-  supervisor
+  supervisor   \
+  pip
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 && docker-php-ext-enable memcached
@@ -99,7 +98,6 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
 ARG INSTALL_PYTHON=true
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apt-get -y install python python-pip python-dev build-essential \
   && python -m pip install --upgrade pip  \
   && python -m pip install --upgrade virtualenv \
   && python -m pip install --upgrade selenium \
