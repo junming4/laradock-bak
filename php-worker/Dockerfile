@@ -9,6 +9,10 @@ FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
+
+# always run apt update when start and after add new source list, then clean up at end.
+RUN apt-get update -yqq
+
 RUN apk --update add wget \
   curl \
   git \
