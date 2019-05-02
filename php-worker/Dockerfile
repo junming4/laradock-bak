@@ -97,7 +97,7 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
 ARG INSTALL_PYTHON=true
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  && python -m pip install --upgrade pip  \
+  python -m pip install --upgrade pip  \
   && python -m pip install --upgrade virtualenv \
   && python -m pip install --upgrade selenium \
   && python -m pip install --upgrade Pillow \
