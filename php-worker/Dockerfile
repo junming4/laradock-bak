@@ -10,9 +10,6 @@ FROM php:${PHP_VERSION}-alpine
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
 
-# always run apt update when start and after add new source list, then clean up at end.
-RUN apt-get update -yqq
-
 RUN apk --update add wget \
   curl \
   git \
@@ -92,30 +89,6 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
     #ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/swoole.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/20-swoole.ini \
 ;fi
 
-
-
-###########################################################################
-# PYTHON:
-###########################################################################
-
-ARG INSTALL_PYTHON=true
-
-RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  python -m pip install --upgrade pip  \
-  && python -m pip install --upgrade virtualenv \
-  && python -m pip install --upgrade selenium \
-  && python -m pip install --upgrade Pillow \
-  && python -m pip install --upgrade requests \
-  && python -m pip install --upgrade pyquery \
-  && python -m pip install --upgrade pytesseract \
-  && pip install MySQL-python \
-  && pip install pymongo \
-  && pip install redis \
-  && pip install opencv-python \
-  && pip install numpy \
-  && python -m pip install --upgrade baidu-aip \
-
-;fi
 
 
 RUN rm /var/cache/apk/* \
