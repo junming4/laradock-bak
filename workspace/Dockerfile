@@ -922,18 +922,17 @@ ARG INSTALL_PYTHON=false
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
   apt-get -y install python python-pip python-dev build-essential \
   && python -m pip install --upgrade pip  \
+  && python -m pip install --upgrade pymongo \
   && python -m pip install --upgrade virtualenv \
   && python -m pip install --upgrade selenium \
   && python -m pip install --upgrade Pillow \
   && python -m pip install --upgrade requests \
   && python -m pip install --upgrade pyquery \
   && python -m pip install --upgrade pytesseract \
-  && pip install MySQL-python \
-  && pip install pymongo \
-  && pip install redis \
-  && pip install opencv-python \
-  && pip install numpy \
-  && python -m pip install --upgrade baidu-aip \
+  && python -m pip install --upgrade MySQL-python \
+  && python -m pip install --upgrade redis \
+  && python -m pip install --upgrade opencv-python \
+  && python -m pip install --upgrade numpy \
 
 ;fi
 
