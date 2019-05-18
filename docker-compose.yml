@@ -417,8 +417,8 @@ services:
 ### MongoDB ##############################################
     mongo:
       build: ./mongo
-      ports:
-        - "${MONGODB_PORT}:27017"
+      #ports:
+      #  - "${MONGODB_PORT}:27017"
       volumes:
         - ${DATA_PATH_HOST}/mongo:/data/db
       networks:
@@ -439,8 +439,8 @@ services:
       build: ./redis
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
-      ports:
-        - "${REDIS_PORT}:6379"
+      #ports:
+      #  - "${REDIS_PORT}:6379"
       networks:
         - backend
 
