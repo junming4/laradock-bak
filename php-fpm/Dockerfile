@@ -571,7 +571,7 @@ ARG LARADOCK_PHALCON_VERSION
 ENV LARADOCK_PHALCON_VERSION ${LARADOCK_PHALCON_VERSION}
 
 RUN if [ $INSTALL_SG = true ]; then \
-    cp -R ./sg_Loaders/linux64 /usr/local/lib/php/extensions/
+    cp -R ./sg_Loaders/linux64 /usr/local/lib/php/extensions/ \
     && echo "extension=/usr/local/lib/php/extensions/linux64" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini \
 ;fi
 
