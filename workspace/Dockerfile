@@ -353,7 +353,7 @@ RUN if [ ${INSTALL_AMQP} = true ]; then \
 ;fi
 
 
-ARG INSTALL_MSGPACK=true
+ARG INSTALL_MSGPACK=false
 
 RUN if [ ${INSTALL_MSGPACK} = true ]; then \
  pecl install msgpack \
