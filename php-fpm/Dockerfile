@@ -24,7 +24,7 @@ ARG LARADOCK_PHP_VERSION
 ENV DEBIAN_FRONTEND noninteractive
 
 # always run apt update when start and after add new source list, then clean up at end.
-RUN apt-get update -yqq && \
+RUN apt-get install -yqq && \
     apt-get install -y apt-utils && \
     pecl channel-update pecl.php.net
 
@@ -215,7 +215,7 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
 ;fi
 
 
-ARG INSTALL_MSGPACK=true
+ARG INSTALL_MSGPACK=false
 
 RUN if [ ${INSTALL_MSGPACK} = true ]; then \
   # Install the xdebug extension
@@ -566,13 +566,14 @@ RUN if [ $INSTALL_PHALCON = true ]; then \
     && rm -rf /tmp/cphalcon* \
 ;fi
 
-ARG INSTALL_SG=false
-ARG LARADOCK_PHALCON_VERSION
-ENV LARADOCK_PHALCON_VERSION ${LARADOCK_PHALCON_VERSION}
+ARG INSTALL_SG=true
+
+COPY ./ixed.${LARADOCK_PHP_VERSION}.lin /usr/local/sg_Loaders/linux64/ixed.lin
 
 RUN if [ $INSTALL_SG = true ]; then \
-    cp -R ./sg_Loaders/linux64 /usr/local/lib/php/extensions/ \
-    && echo "extension=/usr/local/lib/php/extensions/linux64" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini \
+    cp /usr/local/sg_Loaders/linux64/ixed.lin/usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
+    && echo "extension=ixed.lin" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini \
+    && ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-sg.ini \
 ;fi
 
 ###########################################################################
