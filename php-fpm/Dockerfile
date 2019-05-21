@@ -566,6 +566,9 @@ RUN if [ $INSTALL_PHALCON = true ]; then \
     && rm -rf /tmp/cphalcon* \
 ;fi
 
+ARG INSTALL_SG=false
+ARG LARADOCK_PHALCON_VERSION
+ENV LARADOCK_PHALCON_VERSION ${LARADOCK_PHALCON_VERSION}
 
 RUN if [ $INSTALL_SG = true ]; then \
     cp -R ./sg_Loaders/linux64 /usr/local/lib/php/extensions/
