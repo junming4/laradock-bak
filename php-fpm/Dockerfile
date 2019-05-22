@@ -502,16 +502,16 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 # ImageMagick:
 ###########################################################################
 
-USER root
+#USER root
 
-ARG INSTALL_IMAGEMAGICK=false
+#ARG INSTALL_IMAGEMAGICK=false
 
-RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apt-get update && \
-    apt-get install -y imagemagick libmagickwand-dev && \
-    pecl install imagick-beta && \
-    docker-php-ext-enable imagick \
-;fi
+#RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+#    apt-get update && \
+#    apt-get install -y imagemagick libmagickwand-dev && \
+#    pecl install imagick-beta && \
+#    docker-php-ext-enable imagick \
+#;fi
 
 USER root
 ARG INSTALL_FFMPEG=true
