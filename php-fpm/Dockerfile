@@ -24,10 +24,18 @@ ARG LARADOCK_PHP_VERSION
 ENV DEBIAN_FRONTEND noninteractive
 
 # always run apt update when start and after add new source list, then clean up at end.
-RUN apt-get install -yqq && \
-    apt-get install -y apt-utils && \
-    pecl channel-update pecl.php.net
 
+RUN if [ ${LARADOCK_PHP_VERSION} == 5.6 ]; then \
+    apt-get install -yqq && \
+    apt-get install -y apt-utils && \
+    pecl channel-update pecl.php.net \
+;fi
+
+RUN if [ ${LARADOCK_PHP_VERSION} != 5.6 ]; then \
+    apt-get update -yqq && \
+    apt-get install -y apt-utils && \
+    pecl channel-update pecl.php.net \
+;fi
 #
 #--------------------------------------------------------------------------
 # Mandatory Software's Installation
@@ -502,23 +510,23 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 # ImageMagick:
 ###########################################################################
 
-#USER root
+USER root
 
-#ARG INSTALL_IMAGEMAGICK=false
+ARG INSTALL_IMAGEMAGICK=false
 
-#RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-#    apt-get update && \
-#    apt-get install -y imagemagick libmagickwand-dev && \
-#    pecl install imagick-beta && \
-#    docker-php-ext-enable imagick \
-#;fi
+RUN if [ ${INSTALL_IMAGEMAGICK} = true and LARADOCK_PHP_VERSION >= 5.6 ]; then \
+    apt-get update && \
+    apt-get install -y imagemagick libmagickwand-dev && \
+    pecl install imagick-beta && \
+    docker-php-ext-enable imagick \
+;fi
 
-#USER root
-#ARG INSTALL_FFMPEG=true
+USER root
+ARG INSTALL_FFMPEG=true
 
-#RUN if [ ${INSTALL_FFMPEG} = true ]; then \
-#    apt-get install -y ffmpeg \
-#;fi
+RUN if [ ${INSTALL_FFMPEG} = true and LARADOCK_PHP_VERSION >= 5.6 ]; then \
+    apt-get install -y ffmpeg \
+;fi
 
 
 ###########################################################################
@@ -566,15 +574,15 @@ RUN if [ $INSTALL_PHALCON = true ]; then \
     && rm -rf /tmp/cphalcon* \
 ;fi
 
-#ARG INSTALL_SG=true
+ARG INSTALL_SG=true
 
-#COPY ./ixed.${LARADOCK_PHP_VERSION}.lin /usr/local/sg_Loaders/linux64/ixed.lin
+COPY ./ixed.${LARADOCK_PHP_VERSION}.lin /usr/local/sg_Loaders/linux64/ixed.lin
 
-#RUN if [ $INSTALL_SG = true ]; then \
-#    cp /usr/local/sg_Loaders/linux64/ixed.lin/usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
-#    && echo "extension=ixed.lin" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini \
-#    && ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-sg.ini \
-#;fi
+RUN if [ $INSTALL_SG = true and LARADOCK_PHP_VERSION >= 5.6 ]; then \
+    cp /usr/local/sg_Loaders/linux64/ixed.lin/usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
+    && echo "extension=ixed.lin" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini \
+    && ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-sg.ini \
+;fi
 
 ###########################################################################
 # YAML:
