@@ -513,12 +513,12 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 #    docker-php-ext-enable imagick \
 #;fi
 
-USER root
-ARG INSTALL_FFMPEG=true
+#USER root
+#ARG INSTALL_FFMPEG=true
 
-RUN if [ ${INSTALL_FFMPEG} = true ]; then \
-    apt-get install -y ffmpeg \
-;fi
+#RUN if [ ${INSTALL_FFMPEG} = true ]; then \
+#    apt-get install -y ffmpeg \
+#;fi
 
 
 ###########################################################################
