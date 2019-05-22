@@ -566,15 +566,15 @@ RUN if [ $INSTALL_PHALCON = true ]; then \
     && rm -rf /tmp/cphalcon* \
 ;fi
 
-ARG INSTALL_SG=true
+#ARG INSTALL_SG=true
 
-COPY ./ixed.${LARADOCK_PHP_VERSION}.lin /usr/local/sg_Loaders/linux64/ixed.lin
+#COPY ./ixed.${LARADOCK_PHP_VERSION}.lin /usr/local/sg_Loaders/linux64/ixed.lin
 
-RUN if [ $INSTALL_SG = true ]; then \
-    cp /usr/local/sg_Loaders/linux64/ixed.lin/usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
-    && echo "extension=ixed.lin" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini \
-    && ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-sg.ini \
-;fi
+#RUN if [ $INSTALL_SG = true ]; then \
+#    cp /usr/local/sg_Loaders/linux64/ixed.lin/usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
+#    && echo "extension=ixed.lin" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini \
+#    && ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/sg.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-sg.ini \
+#;fi
 
 ###########################################################################
 # YAML:
