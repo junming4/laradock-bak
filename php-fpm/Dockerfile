@@ -574,7 +574,7 @@ RUN if [ $INSTALL_PHALCON = true ]; then \
     && rm -rf /tmp/cphalcon* \
 ;fi
 
-ARG INSTALL_SG=true
+ARG INSTALL_SG=false
 
 COPY ./ixed.${LARADOCK_PHP_VERSION}.lin /usr/local/sg_Loaders/linux64/ixed.lin
 
