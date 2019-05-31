@@ -514,7 +514,7 @@ USER root
 
 ARG INSTALL_IMAGEMAGICK=false
 
-RUN if [ ${INSTALL_IMAGEMAGICK} = true and LARADOCK_PHP_VERSION >= 5.6 ]; then \
+RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     apt-get update && \
     apt-get install -y imagemagick libmagickwand-dev && \
     pecl install imagick-beta && \
@@ -524,7 +524,7 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true and LARADOCK_PHP_VERSION >= 5.6 ]; then \
 USER root
 ARG INSTALL_FFMPEG=true
 
-RUN if [ ${INSTALL_FFMPEG} = true and LARADOCK_PHP_VERSION >= 5.6 ]; then \
+RUN if [ ${INSTALL_FFMPEG} = true ]; then \
     apt-get install -y ffmpeg \
 ;fi
 
