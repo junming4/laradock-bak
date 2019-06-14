@@ -703,23 +703,23 @@ services:
         - frontend
 
 ### Selenium ###############################################
-    appium:
-      build: ./appium
-      ports:
-        - "${APPIUM_PORT}:4723"
-      privileged: true
-      volumes:
-        - /dev/shm:/dev/shm
-        - /dev/bus/usb:/dev/bus/usb
-        - ~/.android:/root/.android
-      shm_size: 512M
-      depends_on:
-              - selenium
-      environment:
-            - CONNECT_TO_GRID=true
-            - SELENIUM_HOST=selenium_hub
-      networks:
-        - frontend
+    #appium:
+    #  build: ./appium
+    #  ports:
+    #    - "${APPIUM_PORT}:4723"
+    #  privileged: true
+    #  volumes:
+    #    - /dev/shm:/dev/shm
+    #    - /dev/bus/usb:/dev/bus/usb
+    #    - ~/.android:/root/.android
+    #  shm_size: 512M
+    #  depends_on:
+    #          - selenium
+    #  environment:
+    #        - CONNECT_TO_GRID=true
+    #        - SELENIUM_HOST=selenium_hub
+    #  networks:
+    #    - frontend
 
 ### Varnish ##########################################
     proxy:
