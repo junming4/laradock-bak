@@ -9,8 +9,9 @@ FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
+RUN apk --update apt-get
 
-RUN apk --update add wget,apt-get \
+RUN apk --update add wget \
   curl \
   git \
   build-base \
