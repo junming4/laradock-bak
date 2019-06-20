@@ -12,7 +12,6 @@ LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 #RUN apk --update add apt-get
 
 RUN apk --update add wget \
-  apt \
   curl \
   git \
   build-base \
@@ -99,7 +98,7 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
 ARG INSTALL_PYTHON=false
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apt-get -y install python python-pip python-dev build-essential \
+  apk --update add python python-pip python-dev build-essential \
   && python -m pip install --upgrade pip  \
   && python -m pip install --upgrade pymongo \
   && python -m pip install --upgrade virtualenv \
