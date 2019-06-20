@@ -98,8 +98,8 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
 ARG INSTALL_PYTHON=false
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  #apk --update add python python-pip python-dev build-essential \
-  && python -m pip install --upgrade pip  \
+  #apk --update add python python-pip python-dev build-essential &&\
+  python -m pip install --upgrade pip  \
   && python -m pip install --upgrade pymongo \
   && python -m pip install --upgrade virtualenv \
   && python -m pip install --upgrade selenium \
