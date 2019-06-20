@@ -110,7 +110,7 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   #&& python -m pip install --upgrade MySQL-python \
   && python -m pip install --upgrade redis \
   #&& python -m pip install --upgrade captcha \
-  && python -m pip install https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp27-cp27mu-linux_x86_64.whl \
+  #&& python -m pip install https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp27-cp27mu-linux_x86_64.whl \
   #&& python -m pip install --upgrade torchvision \
   #&& python -m pip install --upgrade opencv-python \
   && python -m pip install --upgrade numpy \
