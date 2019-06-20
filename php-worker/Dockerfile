@@ -9,7 +9,7 @@ FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
-RUN apk --update add apt-get
+#RUN apk --update add apt-get
 
 RUN apk --update add wget \
   curl \
