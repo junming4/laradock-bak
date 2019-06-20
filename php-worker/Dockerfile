@@ -98,7 +98,7 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
 ARG INSTALL_PYTHON=false
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apk add --update python py-pip python-dev build-essential \
+  apk add --update python py-pip python-dev \
   && python -m pip install --upgrade pip  \
   && python -m pip install --upgrade pymongo \
   && python -m pip install --upgrade virtualenv \
