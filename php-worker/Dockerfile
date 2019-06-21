@@ -92,6 +92,20 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
 
 
 ###########################################################################
+# MySQL Client:
+###########################################################################
+
+USER root
+
+ARG INSTALL_MYSQL_CLIENT=false
+
+RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
+    apt-get update -yqq && \
+    apt-get -y install mysql-client libmysqlclient-dev \
+;fi
+
+
+###########################################################################
 # PYTHON:
 ###########################################################################
 
@@ -107,7 +121,7 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   && python -m pip install --upgrade requests \
   #&& python -m pip install --upgrade pyquery \
   #&& python -m pip install --upgrade pytesseract \
-  #&& python -m pip install --upgrade MySQL-python \
+  && python -m pip install --upgrade MySQL-python \
   && python -m pip install --upgrade redis \
   #&& python -m pip install --upgrade captcha \
   #&& python -m pip install https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp27-cp27mu-linux_x86_64.whl \
