@@ -111,9 +111,9 @@ RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
 ARG INSTALL_PYTHON=false
 
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apk add --update  python py-pip python-dev build-base g++ gcc libxslt-dev libssl-dev \
+  apk add --update  python py-pip python-dev build-base g++ gcc libxslt-dev \
   && python -m pip install --upgrade pip  \
-  && python -m pip install --upgrade MySQL-python \
+  #&& python -m pip install --upgrade MySQL-python \
   && python -m pip install --upgrade pymongo \
   && python -m pip install --upgrade virtualenv \
   && python -m pip install --upgrade selenium \
