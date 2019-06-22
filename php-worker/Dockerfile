@@ -100,7 +100,6 @@ USER root
 ARG INSTALL_MYSQL_CLIENT=false
 
 RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
-    apk add --update -yqq && \
     apk add --update mysql-client libmysqlclient-dev \
 ;fi
 
