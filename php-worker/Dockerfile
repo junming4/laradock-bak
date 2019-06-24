@@ -113,7 +113,6 @@ ARG INSTALL_PYTHON=false
 RUN if [ ${INSTALL_PYTHON} = true ]; then \
   apk add --update  python py-pip python-dev build-base g++ gcc libxslt-dev \
   && python -m pip install --upgrade pip  \
-  #&& python -m pip install --upgrade MySQL-python \
   && python -m pip install --upgrade pymongo \
   && python -m pip install --upgrade virtualenv \
   && python -m pip install --upgrade selenium \
@@ -121,6 +120,7 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   && python -m pip install --upgrade requests \
   && python -m pip install --upgrade pyquery \
   #&& python -m pip install --upgrade pytesseract \
+  && python -m pip install --upgrade MySQL-python \
   && python -m pip install --upgrade redis \
   #&& python -m pip install --upgrade captcha \
   #&& python -m pip install https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp27-cp27mu-linux_x86_64.whl \
