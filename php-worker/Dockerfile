@@ -150,7 +150,7 @@ ARG INSTALL_GD=true
 RUN apk --update add wget \
   freetype-dev \
   jpeg-dev \
-  libjpeg-turbo-dev
+  libjpeg-turbo-dev \
   libpng-dev
 
 RUN docker-php-ext-configure gd \
