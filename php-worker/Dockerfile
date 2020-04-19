@@ -159,7 +159,7 @@ RUN if [ ${INSTALL_GD} = true ]; then \
     curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
     && tar -zxvf /tmp/jpegsrc.v6b2.tar.gz -C /tmp/ \
     && cd /tmp/jpeg-6b2 \
-    && ./configure --prefix=/usr/local/jpeg --enable-shared --enable-static \
+    && ./configure --enable-shared --enable-static \
     && make && make install \
     && rm -rf /tmp/jpeg* \
 
