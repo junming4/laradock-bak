@@ -154,9 +154,9 @@ RUN if [ ${INSTALL_GD} = true ]; then \
     #&& cd /tmp/libpng-1.6.37 \
     #&& ./configure \
     #&& make && make install \
-    #&& rm -rf /tmp/libpng* \
+    #&& rm -rf /tmp/libpng* \ &&
     #/tmp/jpegsrc.v6b.tar.gz https://jaist.dl.sourceforge.net/project/libjpeg/libjpeg/6b/jpegsrc.v6b.tar.gz
-    && curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
+    curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
     && tar -zxvf /tmp/jpegsrc.v6b2.tar.gz -C /tmp/ \
     && cd /tmp/jpeg-6b2 \
     && ./configure --prefix=/usr/local/jpeg --enable-shared --enable-static \
