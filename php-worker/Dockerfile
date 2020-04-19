@@ -22,6 +22,10 @@ RUN apk --update add wget \
   autoconf \
   cyrus-sasl-dev \
   libgsasl-dev \
+  libmcrypt-dev \
+  freetype-dev \
+  libjpeg-turbo-dev \
+  libpng-dev \
   supervisor
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
@@ -146,9 +150,9 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
 
 ARG INSTALL_GD=true
 
-RUN mkdir -p /usr/local/man/man1
+#RUN mkdir -p /usr/local/man/man1
 
-RUN if [ ${INSTALL_GD} = true ]; then \
+#RUN if [ ${INSTALL_GD} = true ]; then \
     #curl -L -o /tmp/libpng-1.6.37.tar.xz https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz  && \
     #tar -xvJf /tmp/libpng-1.6.37.tar.xz -C /tmp/ \
     #&& cd /tmp/libpng-1.6.37 \
@@ -156,14 +160,14 @@ RUN if [ ${INSTALL_GD} = true ]; then \
     #&& make && make install \
     #&& rm -rf /tmp/libpng* \ &&
     #/tmp/jpegsrc.v6b.tar.gz https://jaist.dl.sourceforge.net/project/libjpeg/libjpeg/6b/jpegsrc.v6b.tar.gz
-    curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
-    && tar -zxvf /tmp/jpegsrc.v6b2.tar.gz -C /tmp/ \
-    && cd /tmp/jpeg-6b2 \
-    && ./configure --enable-shared --enable-static \
-    && make && make install \
-    && rm -rf /tmp/jpeg* \
+    #curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
+    #&& tar -zxvf /tmp/jpegsrc.v6b2.tar.gz -C /tmp/ \
+    #&& cd /tmp/jpeg-6b2 \
+    #&& ./configure --enable-shared --enable-static \
+    #&& make && make install \
+    #&& rm -rf /tmp/jpeg* \
 
-;fi
+#;fi
 
 RUN docker-php-ext-install gd
 
