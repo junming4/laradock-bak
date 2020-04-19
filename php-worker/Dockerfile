@@ -149,16 +149,16 @@ ARG INSTALL_GD=true
 RUN mkdir -p /usr/local/man/man1
 
 RUN if [ ${INSTALL_GD} = true ]; then \
-    curl -L -o /tmp/libpng-1.6.37.tar.xz https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz  && \
-    tar -xvJf /tmp/libpng-1.6.37.tar.xz -C /tmp/ \
-    && cd /tmp/libpng-1.6.37 \
-    && ./configure \
-    && make && make install \
-    && rm -rf /tmp/libpng* \
-    && curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
+    #curl -L -o /tmp/libpng-1.6.37.tar.xz https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz  && \
+    #tar -xvJf /tmp/libpng-1.6.37.tar.xz -C /tmp/ \
+    #&& cd /tmp/libpng-1.6.37 \
+    #&& ./configure \
+    #&& make && make install \
+    #&& rm -rf /tmp/libpng* \ &&
+    curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
     && tar -zxvf /tmp/jpegsrc.v6b.tar.gz -C /tmp/ \
     && cd /tmp/jpeg-6b2 \
-    && ./configure \
+    && ./configure --prefix=/usr/local/jpeg --enable-shared --enable-static \
     && make && make install \
     && rm -rf /tmp/jpeg* \
 
