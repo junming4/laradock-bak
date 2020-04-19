@@ -158,6 +158,9 @@ RUN docker-php-ext-configure gd \
         --with-png-dir=/usr/lib/ \
         --with-jpeg-dir=/usr/lib/ \
         --with-gd
+
+RUN NUMPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
+    && docker-php-ext-install -j${NUMPROC} gd
 #RUN mkdir -p /usr/local/man/man1
 
 #RUN if [ ${INSTALL_GD} = true ]; then \
