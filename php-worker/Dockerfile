@@ -55,6 +55,21 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     docker-php-ext-install zip \
 ;fi
 
+
+ARG INSTALL_IMAGEMAGICK=false
+
+RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    curl -L -o /tmp/ImageMagick.zip https://codeload.github.com/ImageMagick/ImageMagick/zip/master  && \
+    unzip -d /tmp/ /tmp/ImageMagick.zip \
+    && cd /tmp/ImageMagick-master \
+    && ./configure --prefix=/usr/local/imagemagick --with-png=yes --with-jpg=yes \
+    && make && make install \
+    && rm -rf /tmp/ImageMagick* \
+    && printf "\n" | pecl install -o -f imagick \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable imagick \
+;fi
+
 ###########################################################################
 # MongoDB:
 ###########################################################################
@@ -91,11 +106,10 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
 ;fi
 
 
+
 ###########################################################################
 # MySQL Client:
 ###########################################################################
-
-USER root
 
 ARG INSTALL_MYSQL_CLIENT=false
 
@@ -130,7 +144,27 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
 
 ;fi
 
+ARG INSTALL_GD=true
 
+RUN mkdir -p /usr/local/man/man1
+
+RUN if [ ${INSTALL_GD} = true ]; then \
+    curl -L -o /tmp/libpng-1.6.37.tar.xz https://nchc.dl.sourceforge.net/project/libpng/libpng16/1.6.37/libpng-1.6.37.tar.xz  && \
+    tar -xvJf /tmp/libpng-1.6.37.tar.xz -C /tmp/ \
+    && cd /tmp/libpng-1.6.37 \
+    && ./configure \
+    && make && make install \
+    && rm -rf /tmp/libpng* \
+    && curl -L -o /tmp/jpegsrc.v6b2.tar.gz https://jpegclub.org/support/files/jpegsrc.v6b2.tar.gz \
+    && tar -zxvf /tmp/jpegsrc.v6b.tar.gz -C /tmp/ \
+    && cd /tmp/jpeg-6b2 \
+    && ./configure \
+    && make && make install \
+    && rm -rf /tmp/jpeg* \
+
+;fi
+
+RUN docker-php-ext-install gd
 
 RUN rm /var/cache/apk/* \
     && mkdir -p /var/www

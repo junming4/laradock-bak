@@ -1,0 +1,10 @@
+[program:laravel-python-baidu]
+process_name=%(program_name)s_%(process_num)02d
+command=python /var/www/python.com/baidu/main.py
+autostart=true
+numprocs=1
+redirect_stderr=true
+autorestart=true
+startretries=1
+stopasgroup=true
+killasgroup=true
