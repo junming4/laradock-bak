@@ -149,9 +149,15 @@ ARG INSTALL_GD=true
 
 RUN apk --update add wget \
   freetype-dev \
-  libjpeg-turbo-dev \
+  jpeg-dev \
+  libjpeg-turbo-dev
   libpng-dev
-RUN docker-php-ext-install gd
+
+RUN docker-php-ext-configure gd \
+        --with-freetype-dir=/usr/lib/ \
+        --with-png-dir=/usr/lib/ \
+        --with-jpeg-dir=/usr/lib/ \
+        --with-gd
 #RUN mkdir -p /usr/local/man/man1
 
 #RUN if [ ${INSTALL_GD} = true ]; then \
