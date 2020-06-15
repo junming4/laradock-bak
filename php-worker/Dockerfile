@@ -57,20 +57,6 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
 ;fi
 
 
-ARG INSTALL_IMAGEMAGICK=false
-
-RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    curl -L -o /tmp/ImageMagick.zip https://codeload.github.com/ImageMagick/ImageMagick/zip/master  && \
-    unzip -d /tmp/ /tmp/ImageMagick.zip \
-    && cd /tmp/ImageMagick-master \
-    && ./configure --prefix=/usr/local/imagemagick --with-png=yes --with-jpg=yes \
-    && make && make install \
-    && rm -rf /tmp/ImageMagick* \
-    && printf "\n" | pecl install -o -f imagick \
-    &&  rm -rf /tmp/pear \
-    &&  docker-php-ext-enable imagick \
-;fi
-
 ###########################################################################
 # MongoDB:
 ###########################################################################
@@ -161,6 +147,27 @@ RUN docker-php-ext-configure gd \
 
 RUN NUMPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && docker-php-ext-install -j${NUMPROC} gd
+
+
+USER root
+ARG INSTALL_IMAGEMAGICK=true
+
+
+RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    apk add imagemagick && \
+    pecl install imagick && \
+    docker-php-ext-enable imagick \
+;fi
+
+#RUN set -ex \
+#    && apk add  --virtual .phpize-deps $PHPIZE_DEPS imagemagick-dev libtool \
+#    && export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS" \
+#    && pecl install imagick-3.4.3 \
+#    && docker-php-ext-enable imagick \
+#    && apk add --no-cache --virtual .imagick-runtime-deps imagemagick \
+#    && apk del .phpize-deps
+
+
 #RUN mkdir -p /usr/local/man/man1
 
 #RUN if [ ${INSTALL_GD} = true ]; then \
