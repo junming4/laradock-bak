@@ -154,7 +154,7 @@ ARG INSTALL_IMAGEMAGICK=true
 
 
 RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apk add imagemagick && \
+    apk add imagemagick imagemagick-dev && \
     pecl install imagick && \
     docker-php-ext-enable imagick \
 ;fi
