@@ -924,7 +924,7 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   && python -m pip install --upgrade pip  \
   && python -m pip install --upgrade pymongo \
   && python -m pip install --upgrade virtualenv \
-  && python -m pip install --upgrade selenium \
+  #&& python -m pip install --upgrade selenium \
   && python -m pip install --upgrade Pillow \
   && python -m pip install --upgrade requests \
   && python -m pip install --upgrade pyquery \
@@ -933,9 +933,9 @@ RUN if [ ${INSTALL_PYTHON} = true ]; then \
   && python -m pip install --upgrade redis \
   && python -m pip install --upgrade captcha \
   #&& python -m pip install https://download.pytorch.org/whl/cpu/torch-1.0.1.post2-cp27-cp27mu-linux_x86_64.whl \
-  && python -m pip install --upgrade torchvision \
-  && python -m pip install --upgrade opencv-python \
-  && python -m pip install --upgrade numpy \
+  #&& python -m pip install --upgrade torchvision \
+  #&& python -m pip install --upgrade opencv-python \
+  #&& python -m pip install --upgrade numpy \
 
 ;fi
 
