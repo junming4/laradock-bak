@@ -75,6 +75,20 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
     #ln -s /usr/local/etc/php/conf.d/mongodb.ini /usr/local/etc/php/conf.d/30-mongodb.ini \
 ;fi
 
+
+###########################################################################
+# PHP REDIS EXTENSION
+###########################################################################
+
+ARG INSTALL_PHPREDIS=true
+
+RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
+    # Install Php Redis Extension
+    printf "\n" | pecl install -o -f redis-4.2.0 \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis \
+;fi
+
 ARG INSTALL_SWOOLE=true
 
 RUN if [ ${INSTALL_SWOOLE} = true ]; then \
