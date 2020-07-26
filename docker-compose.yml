@@ -482,9 +482,9 @@ services:
         - ${DATA_PATH_HOST}/mongo:/data/db
 
       #environment:  # admin账号和密码
-        MONGO_INITDB_ROOT_USERNAME: admin
-        MONGO_INITDB_ROOT_PASSWORD: 8574921
-        MONGO_INITDB_DATABASE: admin
+        #MONGO_INITDB_ROOT_USERNAME: admin
+        #MONGO_INITDB_ROOT_PASSWORD: 8574921
+        #MONGO_INITDB_DATABASE: admin
       networks:
         - backend
 
