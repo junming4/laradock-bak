@@ -480,6 +480,7 @@ services:
         - "${MONGODB_PORT}:27017"
       volumes:
         - ${DATA_PATH_HOST}/mongo:/data/db
+        - ./logs/mongodb/:/var/log/mongodb
 
       #environment:  # admin账号和密码
         #MONGO_INITDB_ROOT_USERNAME: admin
