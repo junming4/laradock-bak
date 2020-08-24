@@ -482,9 +482,11 @@ services:
         - ${DATA_PATH_HOST}/mongo:/data/db
         - ./logs/mongodb/:/var/log/mongodb
 
-      #environment:  # admin账号和密码
-        #MONGO_INITDB_ROOT_USERNAME: admin
-        #MONGO_INITDB_ROOT_PASSWORD: 8574921
+      environment:  # admin账号和密码
+      environment:
+            - AUTH=yes
+            - MONGODB_ADMIN_USER=admin
+            - MONGODB_ADMIN_PASS=admin123
         #MONGO_INITDB_DATABASE: admin
       #privileged: true
       networks:
