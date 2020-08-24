@@ -490,6 +490,23 @@ services:
       networks:
         - backend
 
+    mongo2:
+          build: ./mongo
+          restart: always
+          ports:
+            - "${MONGODB_PORT}:27016"
+          volumes:
+            - ${DATA_PATH_HOST}/mongo:/data/db
+            - ./logs/mongodb2/:/var/log/mongodb
+
+          #environment:  # admin账号和密码
+            #MONGO_INITDB_ROOT_USERNAME: admin
+            #MONGO_INITDB_ROOT_PASSWORD: 8574921
+            #MONGO_INITDB_DATABASE: admin
+          #privileged: true
+          networks:
+            - backend
+
 ### RethinkDB ##############################################
     rethinkdb:
       build: ./rethinkdb
