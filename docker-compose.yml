@@ -496,7 +496,7 @@ services:
           ports:
             - "27016:27016"
           volumes:
-            - ${DATA_PATH_HOST}/mongo:/data/db
+            - ${DATA_PATH_HOST}/mongo2:/data/db
             - ./logs/mongodb2/:/var/log/mongodb
 
           #environment:  # admin账号和密码
